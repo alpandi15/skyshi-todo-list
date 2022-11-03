@@ -1,12 +1,18 @@
 import { useCallback, useEffect, useState } from 'react'
 import moment from 'moment'
 import 'moment/locale/id'
+import Modal from 'react-modal'
 import Button from '../../components/Button'
 import IconDelete from '../../statics/icons/icon-delete.svg'
 import {API_HOST, EMAIL} from '../../constant'
 
 const Home = () => {
   const [lists, setLists] = useState([])
+  const [isOpen, setIsOpen] = useState(false);
+
+  function toggleModal() {
+    setIsOpen(!isOpen);
+  }
 
   const fetchData = useCallback(async () => {
     const res = await fetch(
@@ -59,7 +65,7 @@ const Home = () => {
           <Button leftIconName="add" dataCy='activify-add-button' value="Tambah" onClick={addActivity} />
         </div>
       </div>
-      <div className="mt-16">
+      <div className="mt-16 mb-8">
         <div className="grid grid-cols-4 gap-6">
           {lists?.map((data, index) => {
             return (
@@ -73,7 +79,7 @@ const Home = () => {
                 </div>
                 <div className="absolute b-0 w-[calc(100%-54px)] flex items-center justify-between">
                   <span data-cy="activity-item-date" className="text-[#888]">{moment(data?.created_at).format('DD MMMM YYYY')}</span>
-                  <img alt="delete" src={IconDelete} data-cy="activity-item-delete-button" className="cursor-pointer" />
+                  <img onClick={toggleModal} alt="delete" src={IconDelete} data-cy="activity-item-delete-button" className="cursor-pointer" />
                 </div>
               </div>
             )
@@ -85,6 +91,16 @@ const Home = () => {
           </div>
         ) : null}
       </div>
+      <Modal 
+        isOpen={isOpen}
+        onRequestClose={toggleModal}
+        contentLabel="My dialog"
+        className="modal-content"
+        overlayClassName="modal-overlay"
+        closeTimeoutMS={300}
+      >
+        <div>Data Modal</div>
+      </Modal>
     </div>
   )
 }
