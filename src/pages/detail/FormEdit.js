@@ -44,7 +44,7 @@ const FormEdit = ({data}) => {
             onChange={(e) => setValue(e?.target?.value)}
             autoFocus
             defaultValue={value}
-            className="h-[60px] font-[700] text-[36px] disabled:opacity-75 bg-transparent appearance-none border-b-[1px] h-[40px] border-[#ECEDEF] w-full text-strong-gray leading-tight focus:outline-none focus:border-[#555555]"
+            className="h-[60px] font-[700] text-[36px] disabled:opacity-75 bg-transparent appearance-none border-b-[1px] border-[#ECEDEF] w-full text-strong-gray leading-tight focus:outline-none focus:border-[#555555]"
           />
           <img className="ml-[27px] cursor-pointer" alt="icon" data-cy="todo-title-edit-button" src={IconPencil} />
         </div>

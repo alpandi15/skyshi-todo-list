@@ -15,7 +15,7 @@ const FILTERS = [
   {id: 5,title: 'Belum Selesai', icon: IconSortList},
 ]
 
-const Sort = () => {
+const Sort = ({onSorted}) => {
   const [open, setOpen] = useState(false)
   const [selected, setSelected] = useState(null)
 
@@ -28,6 +28,7 @@ const Sort = () => {
   const onSelected = (id) => {
     setSelected(id)
     setOpen(false)
+    onSorted(id)
   }
 
   return (
@@ -45,7 +46,7 @@ const Sort = () => {
         <div className="w-[235px] rounded-[6px] absolute border-[1px] bg-white top-[60px] shadow-lg">
           {FILTERS.map((filter, index) => {
             return (
-              <div onClick={() => onSelected(filter?.id)} className="flex items-center px-5 py-4 cursor-pointer relative border-b-[1px]">
+              <div key={index} onClick={() => onSelected(filter?.id)} className="flex items-center px-5 py-4 cursor-pointer relative border-b-[1px]">
                 <img data-cy="sort-selection-icon" alt={filter?.title} src={filter?.icon} />
                 <div data-cy="sort-selection-title" className="ml-2 text-[#4A4A4A] text-[16px]">{filter?.title}</div>
                 {filter?.id === selected ? (
