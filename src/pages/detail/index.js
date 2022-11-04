@@ -1,18 +1,55 @@
+import { memo, useCallback, useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import Button from '../../components/Button'
-import { BackButton } from '../../components/BackButton'
 import EmptyState from '../../statics/images/todo-empty-state.png'
+import FormEdit from './FormEdit'
+import { API_HOST } from '../../constant'
+
+const MemoFormEdit = memo(FormEdit)
 
 const Detail = () => {
+  const [isLoading, setIsLoading] = useState(true)
+  const [currentData, setCurrentData] = useState(null)
   const params = useParams()
-  console.log('PARAMS ', params)
+
+  const fetchData = useCallback(async () => {
+    if (params?.activityId) {
+      setIsLoading(true)
+      const res = await fetch(
+        `${API_HOST}/activity-groups/${params?.activityId}`,
+        {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        }
+      )
+      setIsLoading(false)
+      if (res?.ok) {
+        const resData = await res.json()
+        setCurrentData(resData)
+        console.log(resData)
+        return
+      }
+    }
+  }, [params?.activityId])
+
+  useEffect(() => {
+    (async () => {
+      await fetchData()
+    })()
+  }, [fetchData])
+
+  if (isLoading) {
+    return (
+      <div>
+        Loading...
+      </div>
+    )
+  }
+
   return (
     <div>
       <div className="flex items-center justify-between">
-        <div className="flex items-center">
-          <BackButton alt="icon-back-button" dataCy="todo-back-button" />
-          <div data-cy="activity-title" className="font-[700] text-[36px]">New Activity</div>
-        </div>
+        <MemoFormEdit data={currentData} />
         <div>
           <Button leftIconName="add" dataCy='activity-add-button' value="Tambah" />
         </div>
