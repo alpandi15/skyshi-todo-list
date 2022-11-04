@@ -46,11 +46,11 @@ const Sort = () => {
           {FILTERS.map((filter, index) => {
             return (
               <div onClick={() => onSelected(filter?.id)} className="flex items-center px-5 py-4 cursor-pointer relative border-b-[1px]">
-                <img alt={filter?.title} src={filter?.icon} />
-                <div className="ml-2 text-[#4A4A4A] text-[16px]">{filter?.title}</div>
+                <img data-cy="sort-selection-icon" alt={filter?.title} src={filter?.icon} />
+                <div data-cy="sort-selection-title" className="ml-2 text-[#4A4A4A] text-[16px]">{filter?.title}</div>
                 {filter?.id === selected ? (
                   <div className="absolute right-4">
-                    <i className="material-icons text-[#4A4A4A] text-[16px]">check</i>
+                    <i data-cy="sort-selected" className="material-icons text-[#4A4A4A] text-[16px]">check</i>
                   </div>
                 ) : null}
               </div>
