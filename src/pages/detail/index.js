@@ -6,6 +6,7 @@ import FormEdit from './FormEdit'
 import { API_HOST } from '../../constant'
 import ModalComponent from '../../components/Modal'
 import Sort from './Sort'
+import InputDropdown from './InputDropdown'
 
 const MemoFormEdit = memo(FormEdit)
 
@@ -100,12 +101,10 @@ const Detail = () => {
               </div>
               <div className="mt-4">
                 <div className="uppercase font-[600] text-[12px] mb-2">Priority</div>
-                <input
-                  className="px-4 py-2 h-[52px] bg-white appearance-none border-[1px] border-[#E5E5E5] w-full text-strong-gray leading-tight focus:outline-none focus:border-[#555555] rounded"
-                />
+                <InputDropdown />
               </div>
             </div>
-            <div className="flex items-center justify-end mt-12">
+            <div className="flex items-center justify-end mt-4 border-t-[1px] pt-4">
               <Button dataCy="modal-add-save-button" value="Simpan" />
             </div>
           </div>
