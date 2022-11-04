@@ -4,13 +4,40 @@ import 'moment/locale/id'
 import ModalComponent from '../../components/Modal'
 import IconDelete from '../../statics/icons/icon-delete.svg'
 import IconAlert from '../../statics/icons/icon-alert.svg'
+import IconIcon from '../../statics/icons/icon-information.svg'
 import Button from '../../components/Button'
+import { API_HOST } from '../../constant'
 
-const ItemList = ({data}) => {
+const ItemList = ({data, onRefresh}) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenSuccess, setIsOpenSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   function toggleModal() {
     setIsOpen(!isOpen);
+  }
+
+  function toggleModalSuccess() {
+    setIsOpenSuccess(!isOpenSuccess);
+  }
+
+  const deleteActivity = async () => {
+    setIsSubmitting(true)
+    const res = await fetch(
+      `${API_HOST}/activity-groups/${data?.id}`,
+      {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+      }
+    )
+    setIsSubmitting(false)
+    if (res?.ok) {
+      setIsOpen(false)
+      setIsOpenSuccess(true)
+      await onRefresh()
+      return
+    }
+    setIsOpen(false)
   }
 
   return (
@@ -35,7 +62,7 @@ const ItemList = ({data}) => {
           id="ModalDelete"
           dataCy="todo-modal-delete"
         >
-          <div className="w-[500px]">
+          <div className="w-[490px]">
             <div className="w-full flex items-center justify-center mt-6">
               <img data-cy="modal-delete-icon" alt="icon-alert" src={IconAlert} className="align-middle" />
             </div>
@@ -48,7 +75,24 @@ const ItemList = ({data}) => {
             </div>
             <div className="flex items-center justify-center mt-12">
               <Button dataCy="modal-delete-cancle-button" buttonType="secondary" value="Batal" onClick={toggleModal} />
-              <Button dataCy="modal-delete-confirm-button" buttonType="danger" value="Hapus" />
+              <Button dataCy="modal-delete-confirm-button" disabled={isSubmitting} buttonType="danger" value="Hapus" onClick={deleteActivity} />
+            </div>
+          </div>
+        </ModalComponent>
+      )}
+      {isOpenSuccess && (
+        <ModalComponent 
+          isOpen={isOpenSuccess}
+          toggleModal={toggleModalSuccess}
+          id="ModalInformation"
+          dataCy="todo-modal-information"
+        >
+          <div className="w-[490px]">
+            <div className="flex items-center">
+              <img data-cy="modal-information-icon" alt="icon-alert" src={IconIcon} className="align-middle" />
+              <p data-cy="modal-information-title" className="font-[500] text-[14px] text-center ml-[13px]">
+                Activity berhasil dihapus
+              </p>
             </div>
           </div>
         </ModalComponent>

@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
-import moment from 'moment'
 import 'moment/locale/id'
 import Button from '../../components/Button'
-import IconDelete from '../../statics/icons/icon-delete.svg'
 import {API_HOST, EMAIL} from '../../constant'
 import ItemList from './Item'
 
@@ -48,7 +46,6 @@ const Home = () => {
       await fetchData()
       return
     }
-    console.log('ERROR ', res)
   }
 
   return (
@@ -61,7 +58,7 @@ const Home = () => {
       </div>
       <div className="mt-16 mb-8">
         <div className="grid grid-cols-4 gap-6">
-          {lists?.map((data, index) => <ItemList key={index} data={data} />)}
+          {lists?.map((data, index) => <ItemList key={index} data={data} onRefresh={fetchData} />)}
         </div>
         {lists?.total === 0 ? (
           <div className="flex justify-center">
