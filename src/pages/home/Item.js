@@ -60,48 +60,45 @@ const ItemList = ({data, onRefresh}) => {
         </div>
       </div>
 
-      {isOpen && (
-        <ModalDialog 
-          isOpen={isOpen}
-          toggleModal={toggleModal}
-          id="ModalDelete"
-          dataCy="todo-modal-delete"
-        >
-          <div className="w-[490px]">
-            <div className="w-full flex items-center justify-center mt-6">
-              <img data-cy="modal-delete-icon" alt="icon-alert" src={IconAlert} className="align-middle" />
-            </div>
-            <div className="flex items-center justify-center mt-8">
-              <p data-cy="modal-delete-title" className="text-[18px] text-center">
-                Apakah anda yakin menghapus activity
-                <strong className="ml-1">{`“${data?.title}”`}</strong>
-                ?
-              </p>
-            </div>
-            <div className="flex items-center justify-center mt-12">
-              <Button dataCy="modal-delete-cancle-button" buttonType="secondary" value="Batal" onClick={toggleModal} />
-              <Button dataCy="modal-delete-confirm-button" disabled={isSubmitting} buttonType="danger" value="Hapus" onClick={deleteActivity} />
-            </div>
+      <ModalDialog 
+        isOpen={isOpen}
+        toggleModal={toggleModal}
+        id="ModalDelete"
+        dataCy="todo-modal-delete"
+        classNameDialogCenter="modal-delete"
+      >
+        <div className="w-full">
+          <div className="w-full flex items-center justify-center mt-6">
+            <img data-cy="modal-delete-icon" alt="icon-alert" src={IconAlert} className="align-middle" />
           </div>
-        </ModalDialog>
-      )}
-      {isOpenSuccess && (
-        <ModalDialog 
-          isOpen={isOpenSuccess}
-          toggleModal={toggleModalSuccess}
-          id="ModalInformation"
-          dataCy="todo-modal-information"
-        >
-          <div className="w-[490px]">
-            <div className="flex items-center">
-              <img data-cy="modal-information-icon" alt="icon-alert" src={IconIcon} className="align-middle" />
-              <p data-cy="modal-information-title" className="font-[500] text-[14px] text-center ml-[13px]">
-                Activity berhasil dihapus
-              </p>
-            </div>
+          <div className="flex items-center justify-center mt-8">
+            <p data-cy="modal-delete-title" className="text-[18px] text-center">
+              Apakah anda yakin menghapus activity
+              <strong className="ml-1">{`“${data?.title}”`}</strong>
+              ?
+            </p>
           </div>
-        </ModalDialog>
-      )}
+          <div className="flex items-center justify-center mt-12">
+            <Button dataCy="modal-delete-cancle-button" buttonType="secondary" value="Batal" onClick={toggleModal} />
+            <Button dataCy="modal-delete-confirm-button" disabled={isSubmitting} buttonType="danger" value="Hapus" onClick={deleteActivity} />
+          </div>
+        </div>
+      </ModalDialog>
+      <ModalDialog 
+        isOpen={isOpenSuccess}
+        toggleModal={toggleModalSuccess}
+        id="ModalInformation"
+        dataCy="todo-modal-information"
+      >
+        <div className="w-[490px]">
+          <div className="flex items-center">
+            <img data-cy="modal-information-icon" alt="icon-alert" src={IconIcon} className="align-middle" />
+            <p data-cy="modal-information-title" className="font-[500] text-[14px] text-center ml-[13px]">
+              Activity berhasil dihapus
+            </p>
+          </div>
+        </div>
+      </ModalDialog>
     </>
   )
 }

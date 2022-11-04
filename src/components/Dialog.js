@@ -1,12 +1,12 @@
 import {useState, useLayoutEffect, useEffect} from 'react'
 import {createPortal} from 'react-dom'
 
-function createWrapperAndAppendToBody(wrapperId, onClick) {
+function createWrapperAndAppendToBody(wrapperId) {
   const wrapperElement = document.createElement('div')
 
   wrapperElement.setAttribute("id", wrapperId)
-  wrapperElement.onclick = onClick
-  console.log('ONCLICK ', wrapperId, onClick)
+  // wrapperElement.onclick = () => alert('Test')
+
   document.body.appendChild(wrapperElement)
 
   return wrapperElement
@@ -17,8 +17,17 @@ function ReactPortal({ children, wrapperId = 'modal-dialog', toggleModal}) {
 
   useLayoutEffect(() => {
     let element = document.getElementById(wrapperId);
+    let elementOverlay = document.getElementById('modal-backdrop');
     let systemCreated = false;
-
+  
+    if (!elementOverlay) {
+      elementOverlay = document.createElement('div')
+    
+      elementOverlay.setAttribute("id", 'modal-backdrop')
+      elementOverlay.onclick = () => alert('Test')
+      document.body.appendChild(elementOverlay)
+    }
+  
     if (!element) {
       systemCreated = true;
       element = createWrapperAndAppendToBody(wrapperId);
@@ -32,6 +41,9 @@ function ReactPortal({ children, wrapperId = 'modal-dialog', toggleModal}) {
       if (systemCreated && element.parentNode) {
         element.parentNode.removeChild(element);
       }
+      if (elementOverlay.parentNode) {
+        elementOverlay.parentNode.removeChild(elementOverlay);
+      }
       document.body.classList.remove('overflow-hidden', 'pr-[15px]')
     }
   }, [wrapperId]);
@@ -41,12 +53,11 @@ function ReactPortal({ children, wrapperId = 'modal-dialog', toggleModal}) {
   return createPortal(children, wrapperElement);
 }
 
-const ModalDialog = ({children, isOpen, toggleModal, dataCy}) => {
+const ModalDialog = ({children, isOpen, toggleModal, dataCy, classNameDialogCenter}) => {
   if (!isOpen) return null
   return (
     <ReactPortal>
-      <div id="modal-backdrop"></div>
-      <div className="modal-dialog-centered" onClick={toggleModal}>
+      <div className={`modal-dialog-centered ${classNameDialogCenter??''}`} onClick={toggleModal}>
         <div className="modal-content" data-cy={dataCy}>{children}</div>
       </div>
     </ReactPortal>
