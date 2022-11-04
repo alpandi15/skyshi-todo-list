@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom'
 import Button from '../../components/Button'
 import { BackButton } from '../../components/BackButton'
+import EmptyState from '../../statics/images/todo-empty-state.png'
 
 const Detail = () => {
   const params = useParams()
@@ -14,6 +15,15 @@ const Detail = () => {
         </div>
         <div>
           <Button leftIconName="add" dataCy='activity-add-button' value="Tambah" />
+        </div>
+      </div>
+      <div className="mt-16 mb-8">
+        <div className="flex justify-center" data-cy="todo-empty-state">
+          <img
+            className="cursor-pointer"
+            alt="empty"
+            src={EmptyState}
+          />
         </div>
       </div>
     </div>
