@@ -8,6 +8,7 @@ import IconAlert from '../../statics/icons/icon-alert.svg'
 import IconIcon from '../../statics/icons/icon-information.svg'
 import Button from '../../components/Button'
 import { API_HOST } from '../../constant'
+import ModalDialog from '../../components/Dialog'
 
 const ItemList = ({data, onRefresh}) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -60,7 +61,7 @@ const ItemList = ({data, onRefresh}) => {
       </div>
 
       {isOpen && (
-        <ModalComponent 
+        <ModalDialog 
           isOpen={isOpen}
           toggleModal={toggleModal}
           id="ModalDelete"
@@ -82,10 +83,10 @@ const ItemList = ({data, onRefresh}) => {
               <Button dataCy="modal-delete-confirm-button" disabled={isSubmitting} buttonType="danger" value="Hapus" onClick={deleteActivity} />
             </div>
           </div>
-        </ModalComponent>
+        </ModalDialog>
       )}
       {isOpenSuccess && (
-        <ModalComponent 
+        <ModalDialog 
           isOpen={isOpenSuccess}
           toggleModal={toggleModalSuccess}
           id="ModalInformation"
@@ -99,7 +100,7 @@ const ItemList = ({data, onRefresh}) => {
               </p>
             </div>
           </div>
-        </ModalComponent>
+        </ModalDialog>
       )}
     </>
   )

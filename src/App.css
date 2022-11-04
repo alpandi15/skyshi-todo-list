@@ -34,7 +34,7 @@ body {
   }
 }
 
-.modal-content {
+.modal-contents {
   position: fixed;
   /* top: 0;
   left: 0; */
@@ -104,23 +104,11 @@ body {
 }
 
 
-#modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1050;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
 #modal-dialog {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1055;
+  z-index: 1050;
   /* display: none; */
   width: 100%;
   height: 100%;
@@ -129,11 +117,38 @@ body {
   outline: 0;
 }
 
-.modal {
+#modal-backdrop {
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1055;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-dialog-centered {
+  z-index: 1060;
+  position: fixed;
+
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+}
+
+.modal-content {
+  position: fixed;
 
   border: 1px solid #ccc;
   background: #fff;
@@ -141,6 +156,11 @@ body {
   border-radius: 4px;
   outline: none;
   padding: 20px;
+
+  /* width: 100%;
+  height: 100%; */
+  overflow-x: hidden;
+  overflow-y: auto;
 
   transition: all 0.3s ease;
   -webkit-transition: all 0.3s ease;

@@ -7,6 +7,7 @@ import { API_HOST } from '../../constant'
 import ModalComponent from '../../components/Modal'
 import Sort from './Sort'
 import InputDropdown from './InputDropdown'
+import ModalDialog from '../../components/Dialog'
 
 const MemoFormEdit = memo(FormEdit)
 
@@ -77,7 +78,12 @@ const Detail = () => {
           />
         </div>
       </div>
-
+      <ModalDialog isOpen={isOpen} toggleModal={toggleModal}>
+        <div>
+          Modal Dialog
+        </div>
+      </ModalDialog>
+{/* 
       {isOpen && (
         <ModalComponent 
           isOpen={isOpen}
@@ -109,7 +115,7 @@ const Detail = () => {
             </div>
           </div>
         </ModalComponent>
-      )}
+      )} */}
     </div>
   )
 }
