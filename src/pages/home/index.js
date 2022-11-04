@@ -5,8 +5,11 @@ import {API_HOST, EMAIL} from '../../constant'
 import ItemList from './Item'
 
 const Home = () => {
+  const [isLoading, setIsLoading] = useState(true)
   const [lists, setLists] = useState([])
+
   const fetchData = useCallback(async () => {
+    setIsLoading(true)
     const res = await fetch(
       `${API_HOST}/activity-groups?email=${EMAIL}`,
       {
@@ -14,13 +17,12 @@ const Home = () => {
         headers: { 'Content-Type': 'application/json' },
       }
     )
+    setIsLoading(false)
     if (res?.ok) {
       const resData = await res.json()
-      console.log(resData);
       setLists(resData?.data)
       return
     }
-    console.log('ERROR ', res)
   }, [])
 
   useEffect(() => {
@@ -42,7 +44,6 @@ const Home = () => {
       }
     )
     if (res?.ok) {
-      console.log(res);
       await fetchData()
       return
     }
@@ -57,10 +58,12 @@ const Home = () => {
         </div>
       </div>
       <div className="mt-16 mb-8">
-        <div className="grid grid-cols-4 gap-6">
-          {lists?.map((data, index) => <ItemList key={index} data={data} onRefresh={fetchData} />)}
-        </div>
-        {lists?.length === 0 ? (
+        {!isLoading && lists?.length ? (
+          <div className="grid grid-cols-4 gap-6">
+            {lists?.map((data, index) => <ItemList key={index} data={data} onRefresh={fetchData} />)}
+          </div>
+        ) : null}
+        {!isLoading && lists?.length === 0 ? (
           <div className="flex justify-center">
             <img onClick={addActivity} className="w-[767px] h-[490px] cursor-pointer" data-cy="activity-empty-state" alt="activity-empty-state" src="/images/activity-empty-state.png" />
           </div>

@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import moment from 'moment'
 import 'moment/locale/id'
+import {useNavigate} from 'react-router-dom'
 import ModalComponent from '../../components/Modal'
 import IconDelete from '../../statics/icons/icon-delete.svg'
 import IconAlert from '../../statics/icons/icon-alert.svg'
@@ -12,6 +13,8 @@ const ItemList = ({data, onRefresh}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenSuccess, setIsOpenSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const navigate = useNavigate()
 
   function toggleModal() {
     setIsOpen(!isOpen);
@@ -44,9 +47,9 @@ const ItemList = ({data, onRefresh}) => {
     <>
       <div
         data-cy="activity-item"
-        className="relative px-[27px] py-[22px] shadow-[0px_4px_8px_rgba(0,0,0,0.15)] w-full bg-white rounded-[12px] h-[234px]"
+        className="card-item"
       >
-        <div className="h-[158px] cursor-pointer">
+        <div className="h-[158px] cursor-pointer" onClick={() => navigate(`/detail/${data?.id}`)}>
           <h4 data-cy='activity-item-title' className="text-[18px] font-[700]">{data?.title}</h4>
         </div>
         <div className="absolute b-0 w-[calc(100%-54px)] flex items-center justify-between">

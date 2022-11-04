@@ -28,6 +28,10 @@ body {
   .btn-danger {
     @apply bg-[#ED4C5C]
   }
+
+  .card-item {
+    @apply relative px-[27px] py-[22px] shadow-[0px_4px_8px_rgba(0,0,0,0.15)] w-full bg-white rounded-[12px] h-[234px]
+  }
 }
 
 .modal-content {
