@@ -16,9 +16,10 @@ const ModalComponent = ({
       overlayClassName="modal-overlay"
       closeTimeoutMS={300}
       id={id}
-      testId={dataCy}
     >
-      {children}
+      <div className="modal-body" data-cy={dataCy}>
+        {children}
+      </div>
     </Modal>
   )
 }

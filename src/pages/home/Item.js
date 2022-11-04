@@ -3,6 +3,8 @@ import moment from 'moment'
 import 'moment/locale/id'
 import ModalComponent from '../../components/Modal'
 import IconDelete from '../../statics/icons/icon-delete.svg'
+import IconAlert from '../../statics/icons/icon-alert.svg'
+import Button from '../../components/Button'
 
 const ItemList = ({data}) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,7 +35,22 @@ const ItemList = ({data}) => {
           id="ModalDelete"
           dataCy="todo-modal-delete"
         >
-          <div>{data?.title}</div>
+          <div className="w-[500px]">
+            <div className="w-full flex items-center justify-center mt-6">
+              <img data-cy="modal-delete-icon" alt="icon-alert" src={IconAlert} className="align-middle" />
+            </div>
+            <div className="flex items-center justify-center mt-8">
+              <p data-cy="modal-delete-title" className="text-[18px] text-center">
+                Apakah anda yakin menghapus activity
+                <strong className="ml-1">{`“${data?.title}”`}</strong>
+                ?
+              </p>
+            </div>
+            <div className="flex items-center justify-center mt-12">
+              <Button dataCy="modal-delete-cancle-button" buttonType="secondary" value="Batal" onClick={toggleModal} />
+              <Button dataCy="modal-delete-confirm-button" buttonType="danger" value="Hapus" />
+            </div>
+          </div>
         </ModalComponent>
       )}
     </>

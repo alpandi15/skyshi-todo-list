@@ -56,7 +56,7 @@ const Home = () => {
       <div className="flex items-center justify-between">
         <div data-cy="activity-title" className="font-[700] text-[36px]">Activity</div>
         <div>
-          <Button leftIconName="add" dataCy='activify-add-button' value="Tambah" onClick={addActivity} />
+          <Button leftIconName="add" dataCy='activity-add-button' value="Tambah" onClick={addActivity} />
         </div>
       </div>
       <div className="mt-16 mb-8">
