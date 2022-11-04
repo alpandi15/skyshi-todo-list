@@ -18,6 +18,7 @@ const ItemList = ({data, onRefresh}) => {
 
   function toggleModal() {
     setIsOpen(!isOpen);
+    setIsSubmitting(false)
   }
 
   function toggleModalSuccess() {
