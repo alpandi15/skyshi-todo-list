@@ -15,21 +15,21 @@ const FormEdit = ({data}) => {
   }, [data?.title])
 
   const updateTitle = async () => {
-    setIsEdit(false)
-    const res = await fetch(
-      `${API_HOST}/activity-groups/${data?.id}`,
-      {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          title: value
-        })
+    if (isEdit) {
+      setIsEdit(false)
+      const res = await fetch(
+        `${API_HOST}/activity-groups/${data?.id}`,
+        {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            title: value
+          })
+        }
+      )
+      if (res?.ok) {
+        return
       }
-    )
-    if (res?.ok) {
-      const resData = await res.json()
-      console.log(resData);
-      return
     }
   }
 

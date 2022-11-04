@@ -4,6 +4,7 @@ import Button from '../../components/Button'
 import EmptyState from '../../statics/images/todo-empty-state.png'
 import FormEdit from './FormEdit'
 import { API_HOST } from '../../constant'
+import Sort from './Sort'
 
 const MemoFormEdit = memo(FormEdit)
 
@@ -50,7 +51,8 @@ const Detail = () => {
     <div>
       <div className="flex items-center justify-between">
         <MemoFormEdit data={currentData} />
-        <div>
+        <div className="flex items-center">
+          <Sort />
           <Button leftIconName="add" dataCy='activity-add-button' value="Tambah" />
         </div>
       </div>
