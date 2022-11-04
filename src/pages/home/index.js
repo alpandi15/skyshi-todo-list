@@ -60,9 +60,9 @@ const Home = () => {
         <div className="grid grid-cols-4 gap-6">
           {lists?.map((data, index) => <ItemList key={index} data={data} onRefresh={fetchData} />)}
         </div>
-        {lists?.total === 0 ? (
+        {lists?.length === 0 ? (
           <div className="flex justify-center">
-            <img className="w-[767px] h-[490px] cursor-pointer" data-cy="activity-empty-state" alt="activity-empty-state" src="/images/activity-empty-state.png" />
+            <img onClick={addActivity} className="w-[767px] h-[490px] cursor-pointer" data-cy="activity-empty-state" alt="activity-empty-state" src="/images/activity-empty-state.png" />
           </div>
         ) : null}
       </div>
