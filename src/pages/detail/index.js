@@ -4,7 +4,7 @@ import Button from '../../components/Button'
 import EmptyState from '../../statics/images/todo-empty-state.png'
 import FormEdit from './FormEdit'
 import { API_HOST } from '../../constant'
-import ModalComponent from '../../components/Modal'
+// import ModalComponent from '../../components/Modal'
 import Sort from './Sort'
 import InputDropdown from './InputDropdown'
 import ModalDialog from '../../components/Dialog'
@@ -16,6 +16,10 @@ const Detail = () => {
   const [currentData, setCurrentData] = useState(null)
   const [isOpen, setIsOpen] = useState(false);
   const params = useParams()
+
+  useEffect(() => {
+    document.title = 'Detail | To Do List'
+  }, [])
 
   const fetchData = useCallback(async () => {
     if (params?.activityId) {
@@ -78,14 +82,14 @@ const Detail = () => {
           />
         </div>
       </div>
-      <ModalDialog isOpen={isOpen} toggleModal={toggleModal}>
+      {/* <ModalDialog isOpen={isOpen} toggleModal={toggleModal}>
         <div>
           Modal Dialog
         </div>
-      </ModalDialog>
-{/* 
+      </ModalDialog> */}
+
       {isOpen && (
-        <ModalComponent 
+        <ModalDialog 
           isOpen={isOpen}
           toggleModal={toggleModal}
           id="ModalForm"
@@ -114,8 +118,8 @@ const Detail = () => {
               <Button dataCy="modal-add-save-button" value="Simpan" />
             </div>
           </div>
-        </ModalComponent>
-      )} */}
+        </ModalDialog>
+      )}
     </div>
   )
 }

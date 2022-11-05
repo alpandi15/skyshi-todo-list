@@ -2,17 +2,15 @@ import {useState} from 'react'
 import moment from 'moment'
 import 'moment/locale/id'
 import {useNavigate} from 'react-router-dom'
-import ModalComponent from '../../components/Modal'
+// import ModalComponent from '../../components/Modal'
 import IconDelete from '../../statics/icons/icon-delete.svg'
 import IconAlert from '../../statics/icons/icon-alert.svg'
-import IconIcon from '../../statics/icons/icon-information.svg'
 import Button from '../../components/Button'
 import { API_HOST } from '../../constant'
 import ModalDialog from '../../components/Dialog'
 
-const ItemList = ({data, onRefresh}) => {
+const ItemList = ({data, onRefresh, onHandleSuccess}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isOpenSuccess, setIsOpenSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const navigate = useNavigate()
@@ -20,10 +18,6 @@ const ItemList = ({data, onRefresh}) => {
   function toggleModal() {
     setIsOpen(!isOpen);
     setIsSubmitting(false)
-  }
-
-  function toggleModalSuccess() {
-    setIsOpenSuccess(!isOpenSuccess);
   }
 
   const deleteActivity = async () => {
@@ -38,7 +32,7 @@ const ItemList = ({data, onRefresh}) => {
     setIsSubmitting(false)
     if (res?.ok) {
       setIsOpen(false)
-      setIsOpenSuccess(true)
+      onHandleSuccess()
       await onRefresh()
       return
     }
@@ -79,25 +73,8 @@ const ItemList = ({data, onRefresh}) => {
               </p>
             </div>
             <div className="flex items-center justify-center mt-12">
-              <Button dataCy="modal-delete-cancle-button" buttonType="secondary" value="Batal" onClick={toggleModal} />
-              <Button dataCy="modal-delete-confirm-button" disabled={isSubmitting} buttonType="danger" value="Hapus" onClick={deleteActivity} />
-            </div>
-          </div>
-        </ModalDialog>
-      )}
-      {isOpenSuccess && (
-        <ModalDialog 
-          isOpen={isOpenSuccess}
-          toggleModal={toggleModalSuccess}
-          id="ModalInformation"
-          dataCy="todo-modal-information"
-        >
-          <div>
-            <div className="flex items-center">
-              <img data-cy="modal-information-icon" alt="icon-alert" src={IconIcon} className="align-middle" />
-              <p data-cy="modal-information-title" className="font-[500] text-[14px] text-center ml-[13px]">
-                Activity berhasil dihapus
-              </p>
+              <Button className="mx-2" dataCy="modal-delete-cancle-button" buttonType="secondary" value="Batal" onClick={toggleModal} />
+              <Button className="mx-2" dataCy="modal-delete-confirm-button" disabled={isSubmitting} buttonType="danger" value="Hapus" onClick={deleteActivity} />
             </div>
           </div>
         </ModalDialog>
