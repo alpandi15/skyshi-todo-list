@@ -8,8 +8,10 @@ import { API_HOST } from '../../constant'
 import Sort from './Sort'
 import InputDropdown from '../../components/form/InputDropdown'
 import ModalDialog from '../../components/Dialog'
+import TodoItem from './TodoItem'
 
 const MemoFormEdit = memo(FormEdit)
+const MemoTodoItem = memo(TodoItem)
 
 const Detail = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -35,7 +37,6 @@ const Detail = () => {
       if (res?.ok) {
         const resData = await res.json()
         setCurrentData(resData)
-        console.log(resData)
         return
       }
     }
@@ -63,24 +64,6 @@ const Detail = () => {
     console.log(id)
   }
 
-  const onSubmit = async (values) => {
-    console.log(values)
-    const res = await fetch(
-      `${API_HOST}/todo-items`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          activity_group_id: params?.activityId,
-          ...values
-        })
-      }
-    )
-    if (res?.ok) {
-      return
-    }
-  }
-
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -91,20 +74,27 @@ const Detail = () => {
         </div>
       </div>
       <div className="mt-16 mb-8">
-        <div className="flex justify-center" data-cy="todo-empty-state">
-          <img
-            onClick={toggleModal}
-            className="cursor-pointer"
-            alt="empty"
-            src={EmptyState}
-          />
-        </div>
+        {
+          currentData?.todo_items?.length ? (
+            <div>
+              {
+                currentData?.todo_items?.map((list, index) => {
+                  return <MemoTodoItem data={list} key={index} />
+                })
+              }
+            </div>
+          ) : (
+            <div className="flex justify-center" data-cy="todo-empty-state">
+              <img
+                onClick={toggleModal}
+                className="cursor-pointer"
+                alt="empty"
+                src={EmptyState}
+              />
+            </div>
+          )
+        }
       </div>
-      {/* <ModalDialog isOpen={isOpen} toggleModal={toggleModal}>
-        <div>
-          Modal Dialog
-        </div>
-      </ModalDialog> */}
 
       {isOpen && (
         <ModalDialog 
@@ -113,7 +103,11 @@ const Detail = () => {
           dataCy="modal-add-item"
           className="modal-add-activity"
         >
-          <ModalForm onSubmit={onSubmit} toggleModal={toggleModal} />
+          <ModalForm
+            activityId={params?.activityId}
+            toggleModal={toggleModal}
+            onRefresh={fetchData}
+          />
         </ModalDialog>
       )}
     </div>
@@ -122,18 +116,37 @@ const Detail = () => {
 
 export default Detail
 
-const ModalForm = memo(({onSubmit, toggleModal}) => {
+const ModalForm = memo(({toggleModal, activityId, onRefresh}) => {
   const [values, setValues] = useState({
     title: null,
     priority: null
   })
 
   const onChangeValue = (name, value) => {
-    console.log(name, value);
     setValues({
       ...values,
       [name]: value
     })
+  }
+
+  const onSubmit = async () => {
+    const res = await fetch(
+      `${API_HOST}/todo-items`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          activity_group_id: activityId,
+          ...values
+        })
+      }
+    )
+    if (res?.ok) {
+      await onRefresh()
+      toggleModal()
+      return
+    }
+    alert('Error')
   }
 
   return (
@@ -159,7 +172,7 @@ const ModalForm = memo(({onSubmit, toggleModal}) => {
         </div>
       </div>
       <div className="flex items-center justify-end mt-4 border-t-[1px] pt-4">
-        <Button onClick={() => onSubmit(values)} dataCy="modal-add-save-button" value="Simpan" />
+        <Button disabled={!!!values?.title || !!!values?.priority} onClick={onSubmit} dataCy="modal-add-save-button" value="Simpan" />
       </div>
     </div>
   )
