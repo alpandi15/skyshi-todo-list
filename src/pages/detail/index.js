@@ -63,8 +63,22 @@ const Detail = () => {
     console.log(id)
   }
 
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
     console.log(values)
+    const res = await fetch(
+      `${API_HOST}/todo-items`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          activity_group_id: params?.activityId,
+          ...values
+        })
+      }
+    )
+    if (res?.ok) {
+      return
+    }
   }
 
   return (
