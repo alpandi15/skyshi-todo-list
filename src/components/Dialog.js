@@ -1,14 +1,14 @@
 import {useState, useLayoutEffect, useEffect, useRef, useCallback} from 'react'
 import {createPortal} from 'react-dom'
 
-function createWrapperAndAppendToBody(wrapperId, onClick) {
+function createWrapperAndAppendToBody(wrapperId) {
   const wrapperElement = document.createElement('div')
-  console.log('ONCLIC ', wrapperId, onClick);
-  wrapperElement.onclick = function () {
-    console.log(onClick)
-    console.log(`WRAPPER ${wrapperId}`)
-  }
-  // wrapperElement.onclick = onClick
+  // console.log('ONCLIC ', wrapperId, onClick);
+  // wrapperElement.onclick = function () {
+  //   console.log(onClick)
+  //   console.log(`WRAPPER ${wrapperId}`)
+  // }
+  // // wrapperElement.onclick = onClick
   wrapperElement.setAttribute('id', wrapperId)
   document.body.appendChild(wrapperElement)
 
@@ -52,7 +52,7 @@ function ReactPortal({ children, wrapperId = 'modal-dialog', backdropId = 'modal
   return createPortal(children, wrapperElement);
 }
 
-const ModalDialog = ({children, isOpen, toggleModal, dataCy}) => {
+const ModalDialog = ({children, isOpen, toggleModal, dataCy, className}) => {
   let ref = useRef()
 
   const closeModal = useCallback(({target}) => {
@@ -72,7 +72,7 @@ const ModalDialog = ({children, isOpen, toggleModal, dataCy}) => {
   if (!isOpen) return null
   return (
     <ReactPortal toggleModal={toggleModal}>
-      <div className="modal-dialog-centered" ref={ref}>
+      <div className={`modal-dialog-centered ${className??''}`} ref={ref}>
         <div className="modal-content" data-cy={dataCy}>{children}</div>
       </div>
     </ReactPortal>

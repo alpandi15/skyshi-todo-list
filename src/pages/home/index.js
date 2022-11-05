@@ -94,13 +94,14 @@ const Home = () => {
           id="ModalInformation"
           dataCy="todo-modal-information"
         >
-          <div className="w-full">
+          <div className="w-full flex items-center justify-between">
             <div className="flex items-center">
               <img data-cy="modal-information-icon" alt="icon-alert" src={IconIcon} className="align-middle" />
               <p data-cy="modal-information-title" className="font-[500] text-[14px] text-center ml-[13px]">
                 Activity berhasil dihapus
               </p>
             </div>
+            <i className="material-icons text-[#A4A4A4] cursor-pointer" onClick={toggleModalSuccess}>close</i>
           </div>
         </ModalDialog>
       )}

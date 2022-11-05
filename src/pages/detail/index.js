@@ -6,7 +6,7 @@ import FormEdit from './FormEdit'
 import { API_HOST } from '../../constant'
 // import ModalComponent from '../../components/Modal'
 import Sort from './Sort'
-import InputDropdown from './InputDropdown'
+import InputDropdown from '../../components/form/InputDropdown'
 import ModalDialog from '../../components/Dialog'
 
 const MemoFormEdit = memo(FormEdit)
@@ -63,6 +63,10 @@ const Detail = () => {
     console.log(id)
   }
 
+  const onSubmit = (values) => {
+    console.log(values)
+  }
+
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -92,32 +96,10 @@ const Detail = () => {
         <ModalDialog 
           isOpen={isOpen}
           toggleModal={toggleModal}
-          id="ModalForm"
-          dataCy="todo-modal-delete"
+          dataCy="modal-add-item"
+          className="modal-add-activity"
         >
-          <div className="w-[750px]">
-            <div className="flex items-center justify-between px-4 pb-3 border-b-[1px]">
-              <div className="text-[18px] font-[600]" data-cy="modal-add-title">Tambah List Item</div>
-              <div>
-                <i data-cy="modal-add-close-button" className="material-icons text-[#A4A4A4] cursor-pointer" onClick={toggleModal}>close</i>
-              </div>
-            </div>
-            <div className="py-4 px-4">
-              <div className="mt-4">
-                <div className="uppercase font-[600] text-[12px] mb-2">Nama List Item</div>
-                <input
-                  className="px-4 py-2 h-[52px] bg-white appearance-none border-[1px] border-[#E5E5E5] w-full text-strong-gray leading-tight focus:outline-none focus:border-[#555555] rounded"
-                />
-              </div>
-              <div className="mt-4">
-                <div className="uppercase font-[600] text-[12px] mb-2">Priority</div>
-                <InputDropdown />
-              </div>
-            </div>
-            <div className="flex items-center justify-end mt-4 border-t-[1px] pt-4">
-              <Button dataCy="modal-add-save-button" value="Simpan" />
-            </div>
-          </div>
+          <ModalForm onSubmit={onSubmit} toggleModal={toggleModal} />
         </ModalDialog>
       )}
     </div>
@@ -125,3 +107,46 @@ const Detail = () => {
 }
 
 export default Detail
+
+const ModalForm = memo(({onSubmit, toggleModal}) => {
+  const [values, setValues] = useState({
+    title: null,
+    priority: null
+  })
+
+  const onChangeValue = (name, value) => {
+    console.log(name, value);
+    setValues({
+      ...values,
+      [name]: value
+    })
+  }
+
+  return (
+    <div className="w-full">
+      <div className="flex items-center justify-between px-4 pb-3 border-b-[1px]">
+        <div className="text-[18px] font-[600]" data-cy="modal-add-title">Tambah List Item</div>
+        <div>
+          <i data-cy="modal-add-close-button" className="material-icons text-[#A4A4A4] cursor-pointer" onClick={toggleModal}>close</i>
+        </div>
+      </div>
+      <div className="py-4 px-4">
+        <div className="mt-4">
+          <div className="uppercase font-[600] text-[12px] mb-2">Nama List Item</div>
+          <input
+            name="title"
+            onChange={(e) => onChangeValue(e.target.name, e.target.value)}
+            className="px-4 py-2 h-[52px] bg-white appearance-none border-[1px] border-[#E5E5E5] w-full text-strong-gray leading-tight focus:outline-none focus:border-[#555555] rounded"
+          />
+        </div>
+        <div className="mt-4">
+          <div className="uppercase font-[600] text-[12px] mb-2">Priority</div>
+          <InputDropdown onHandleSelected={onChangeValue} />
+        </div>
+      </div>
+      <div className="flex items-center justify-end mt-4 border-t-[1px] pt-4">
+        <Button onClick={() => onSubmit(values)} dataCy="modal-add-save-button" value="Simpan" />
+      </div>
+    </div>
+  )
+})

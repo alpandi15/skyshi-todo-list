@@ -83,3 +83,7 @@ body {
   pointer-events: auto;
   width: 100%;
 }
+
+.modal-dialog-centered.modal-add-activity {
+  max-width: 830px;
+}

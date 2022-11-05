@@ -28,7 +28,7 @@ const Sort = ({onSorted}) => {
   const onSelected = (id) => {
     setSelected(id)
     setOpen(false)
-    onSorted(id)
+    // onSorted(id)
   }
 
   return (
