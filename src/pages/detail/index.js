@@ -8,7 +8,7 @@ import Sort from './Sort'
 import InputDropdown from '../../components/form/InputDropdown'
 import ModalDialog from '../../components/Dialog'
 import TodoItem from './TodoItem'
-import { SORT_LIST } from '../../constant'
+// import { SORT_LIST } from '../../constant'
 
 const MemoFormEdit = memo(FormEdit)
 const MemoTodoItem = memo(TodoItem)
@@ -65,7 +65,6 @@ const Detail = () => {
 
   const onSorted = (id) => {
     console.log(id)
-    const find = SORT_LIST?.find((x) => Number(x?.id) === Number(id))
     // terbaru
     if (id === 1) {
       const update = listTodo?.sort((a, b) => (a.id < b.id) ? 1 : -1)
