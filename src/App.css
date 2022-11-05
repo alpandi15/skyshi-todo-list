@@ -84,6 +84,9 @@ body {
   width: 100%;
 }
 
-.modal-dialog-centered.modal-add-activity {
+.modal-dialog-centered.modal-md {
+  max-width: 830px;
+}
+.modal-dialog-centered.modal-md {
   max-width: 830px;
 }

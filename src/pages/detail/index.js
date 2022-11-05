@@ -16,6 +16,7 @@ const MemoTodoItem = memo(TodoItem)
 const Detail = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [currentData, setCurrentData] = useState(null)
+  const [listTodo, setListTodo] = useState([])
   const [isOpen, setIsOpen] = useState(false);
   const params = useParams()
 
@@ -36,7 +37,9 @@ const Detail = () => {
       setIsLoading(false)
       if (res?.ok) {
         const resData = await res.json()
-        setCurrentData(resData)
+        const {todo_items, ...others} = resData
+        setCurrentData(others)
+        setListTodo(todo_items??[])
         return
       }
     }
@@ -65,9 +68,8 @@ const Detail = () => {
   }
 
   const onDeleteTodo = (id) => {
-    const {todo_items, ...others} = currentData
-    const update = todo_items?.filter((x) => Number(x?.id) !== Number(id))
-    setCurrentData({...others, todo_items: update})
+    const update = listTodo?.filter((x) => Number(x?.id) !== Number(id))
+    setListTodo(update)
   }
 
   return (
@@ -81,11 +83,18 @@ const Detail = () => {
       </div>
       <div className="mt-16 mb-8">
         {
-          currentData?.todo_items?.length ? (
+          listTodo?.length ? (
             <div>
               {
-                currentData?.todo_items?.map((list, index) => {
-                  return <MemoTodoItem data={list} key={index} onUpdateList={onDeleteTodo} />
+                listTodo?.map((list, index) => {
+                  return (
+                    <MemoTodoItem
+                      data={list}
+                      key={index}
+                      onUpdateList={onDeleteTodo}
+                      onRefresh={fetchData}
+                    />
+                  )
                 })
               }
             </div>
@@ -107,7 +116,7 @@ const Detail = () => {
           isOpen={isOpen}
           toggleModal={toggleModal}
           dataCy="modal-add-item"
-          className="modal-add-activity"
+          className="modal-md"
         >
           <ModalForm
             activityId={params?.activityId}

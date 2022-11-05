@@ -1,8 +1,8 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useOutsideAlerter } from '../../libs/useOutsideAlerter'
 import { LIST_PRIORITY } from '../../constant'
 
-const InputDropdown = ({onHandleSelected}) => {
+const InputDropdown = ({onHandleSelected, defaultValue}) => {
   const [open, setOpen] = useState(false)
   const [selected, setSelected] = useState(null)
 
@@ -13,6 +13,14 @@ const InputDropdown = ({onHandleSelected}) => {
   useOutsideAlerter(wrapperRef, () => {
     if (open) setOpen(false)
   })
+  
+  useEffect(() => {
+    // initial value
+    if (defaultValue) {
+      const find = LIST_PRIORITY?.find((x) => x?.priority === defaultValue)
+      setSelected(find)
+    }
+  }, [defaultValue])
 
   const onSelected = (id) => {
     const find = LIST_PRIORITY?.find((x) => Number(x?.id) === Number(id))
