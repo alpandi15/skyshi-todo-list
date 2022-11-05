@@ -4,6 +4,7 @@ const Button = ({
   leftIconName,
   type="button",
   buttonType = "primary",
+  className,
   ...props
 }) => {
   return (
@@ -11,12 +12,12 @@ const Button = ({
       {...props}
       type={type}
       data-cy={dataCy}
-      className={
-        buttonType === 'primary' ? 'btn btn-primary'
+      className={`
+        ${className??''}
+        ${buttonType === 'primary' ? 'btn btn-primary'
           : buttonType === 'danger' ? 'btn btn-danger'
           : buttonType === 'secondary' ? 'btn btn-secondary'
-          : 'btn'
-        }
+          : 'btn'}`}
     >
       {leftIconName ? (
         <i className="material-icons text-[24px] text-white">{leftIconName}</i>

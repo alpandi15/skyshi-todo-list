@@ -1,15 +1,21 @@
 import { useCallback, useEffect, useState } from 'react'
-import 'moment/locale/id'
 import Button from '../../components/Button'
 import {API_HOST, EMAIL} from '../../constant'
 import ItemList from './Item'
+import IconIcon from '../../statics/icons/icon-information.svg'
+import ModalDialog from '../../components/Dialog'
 
 const Home = () => {
-  const [isLoading, setIsLoading] = useState(true)
+  // const [isLoading, setIsLoading] = useState(true)
   const [lists, setLists] = useState([])
+  const [isOpenSuccess, setIsOpenSuccess] = useState(false);
+
+  useEffect(() => {
+    document.title = 'Dashboard | To Do List'
+  }, [])
 
   const fetchData = useCallback(async () => {
-    setIsLoading(true)
+    // setIsLoading(true)
     const res = await fetch(
       `${API_HOST}/activity-groups?email=${EMAIL}`,
       {
@@ -17,7 +23,7 @@ const Home = () => {
         headers: { 'Content-Type': 'application/json' },
       }
     )
-    setIsLoading(false)
+    // setIsLoading(false)
     if (res?.ok) {
       const resData = await res.json()
       setLists(resData?.data)
@@ -49,6 +55,10 @@ const Home = () => {
     }
   }
 
+  function toggleModalSuccess() {
+    setIsOpenSuccess(!isOpenSuccess);
+  }
+
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -60,7 +70,14 @@ const Home = () => {
       <div className="mt-16 mb-8">
         {lists?.length ? (
           <div className="grid grid-cols-4 gap-6">
-            {lists?.map((data, index) => <ItemList key={index} data={data} onRefresh={fetchData} />)}
+            {lists?.map((data, index) => (
+              <ItemList
+                key={index}
+                data={data}
+                onRefresh={fetchData}
+                onHandleSuccess={toggleModalSuccess}
+              />
+            ))}
           </div>
         ) : null}
         {lists?.length === 0 ? (
@@ -69,6 +86,25 @@ const Home = () => {
           </div>
         ) : null}
       </div>
+
+      {isOpenSuccess && (
+        <ModalDialog 
+          isOpen={isOpenSuccess}
+          toggleModal={toggleModalSuccess}
+          id="ModalInformation"
+          dataCy="todo-modal-information"
+        >
+          <div className="w-full flex items-center justify-between">
+            <div className="flex items-center">
+              <img data-cy="modal-information-icon" alt="icon-alert" src={IconIcon} className="align-middle" />
+              <p data-cy="modal-information-title" className="font-[500] text-[14px] text-center ml-[13px]">
+                Activity berhasil dihapus
+              </p>
+            </div>
+            <i className="material-icons text-[#A4A4A4] cursor-pointer" onClick={toggleModalSuccess}>close</i>
+          </div>
+        </ModalDialog>
+      )}
     </div>
   )
 }

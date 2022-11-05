@@ -1,19 +1,7 @@
 import { useState, useRef } from 'react'
 import IconSort from '../../statics/icons/icon-sort.svg'
 import { useOutsideAlerter } from '../../libs/useOutsideAlerter'
-import IconSortList from '../../statics/icons/sort.svg'
-import IconSortDown from '../../statics/icons/sort-down.svg'
-import IconSortUp from '../../statics/icons/sort-up.svg'
-import IconSortZa from '../../statics/icons/sort-za.svg'
-import IconSortAz from '../../statics/icons/sort-az.svg'
-
-const FILTERS = [
-  {id: 1,title: 'Terbaru', icon: IconSortDown},
-  {id: 2,title: 'Terlama', icon: IconSortUp},
-  {id: 3,title: 'A-Z', icon: IconSortAz},
-  {id: 4,title: 'Z-A', icon: IconSortZa},
-  {id: 5,title: 'Belum Selesai', icon: IconSortList},
-]
+import { SORT_LIST as FILTERS } from '../../constant'
 
 const Sort = ({onSorted}) => {
   const [open, setOpen] = useState(false)

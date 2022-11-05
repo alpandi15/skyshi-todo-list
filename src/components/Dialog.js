@@ -1,33 +1,32 @@
-import {useState, useLayoutEffect, useEffect} from 'react'
+import {useState, useLayoutEffect, useEffect, useRef, useCallback} from 'react'
 import {createPortal} from 'react-dom'
 
 function createWrapperAndAppendToBody(wrapperId) {
   const wrapperElement = document.createElement('div')
-
-  wrapperElement.setAttribute("id", wrapperId)
-  // wrapperElement.onclick = () => alert('Test')
-
+  // console.log('ONCLIC ', wrapperId, onClick);
+  // wrapperElement.onclick = function () {
+  //   console.log(onClick)
+  //   console.log(`WRAPPER ${wrapperId}`)
+  // }
+  // // wrapperElement.onclick = onClick
+  wrapperElement.setAttribute('id', wrapperId)
   document.body.appendChild(wrapperElement)
 
   return wrapperElement
 }
 
-function ReactPortal({ children, wrapperId = 'modal-dialog', toggleModal}) {
+function ReactPortal({ children, wrapperId = 'modal-dialog', backdropId = 'modal-backdrop', toggleModal}) {
   const [wrapperElement, setWrapperElement] = useState(null);
 
   useLayoutEffect(() => {
     let element = document.getElementById(wrapperId);
-    let elementOverlay = document.getElementById('modal-backdrop');
+    let elementBackdrop = document.getElementById(backdropId);
     let systemCreated = false;
-  
-    if (!elementOverlay) {
-      elementOverlay = document.createElement('div')
-    
-      elementOverlay.setAttribute("id", 'modal-backdrop')
-      elementOverlay.onclick = () => alert('Test')
-      document.body.appendChild(elementOverlay)
+
+    if (!elementBackdrop) {
+      elementBackdrop = createWrapperAndAppendToBody(backdropId, toggleModal);
     }
-  
+
     if (!element) {
       systemCreated = true;
       element = createWrapperAndAppendToBody(wrapperId);
@@ -41,23 +40,39 @@ function ReactPortal({ children, wrapperId = 'modal-dialog', toggleModal}) {
       if (systemCreated && element.parentNode) {
         element.parentNode.removeChild(element);
       }
-      if (elementOverlay.parentNode) {
-        elementOverlay.parentNode.removeChild(elementOverlay);
+      if (elementBackdrop.parentNode) {
+        elementBackdrop.parentNode.removeChild(elementBackdrop);
       }
       document.body.classList.remove('overflow-hidden', 'pr-[15px]')
     }
-  }, [wrapperId]);
+  }, [backdropId, toggleModal, wrapperId]);
 
   if (wrapperElement === null) return null;
 
   return createPortal(children, wrapperElement);
 }
 
-const ModalDialog = ({children, isOpen, toggleModal, dataCy, classNameDialogCenter}) => {
+const ModalDialog = ({children, isOpen, toggleModal, dataCy, className}) => {
+  let ref = useRef()
+
+  const closeModal = useCallback(({target}) => {
+    console.log('CONTAINT', ref.current.contains(target));
+    if (ref.current && !ref.current.contains(target)) {
+      // toggleModal()
+    }
+  }, [])
+
+  useEffect(() => {
+    document.addEventListener('click', closeModal, false)
+    return () => {
+      document.removeEventListener('click', closeModal, false)
+    }
+  }, [closeModal])
+
   if (!isOpen) return null
   return (
-    <ReactPortal>
-      <div className={`modal-dialog-centered ${classNameDialogCenter??''}`} onClick={toggleModal}>
+    <ReactPortal toggleModal={toggleModal}>
+      <div className={`modal-dialog-centered ${className??''}`} ref={ref}>
         <div className="modal-content" data-cy={dataCy}>{children}</div>
       </div>
     </ReactPortal>
