@@ -64,6 +64,12 @@ const Detail = () => {
     console.log(id)
   }
 
+  const onDeleteTodo = (id) => {
+    const {todo_items, ...others} = currentData
+    const update = todo_items?.filter((x) => Number(x?.id) !== Number(id))
+    setCurrentData({...others, todo_items: update})
+  }
+
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -79,7 +85,7 @@ const Detail = () => {
             <div>
               {
                 currentData?.todo_items?.map((list, index) => {
-                  return <MemoTodoItem data={list} key={index} />
+                  return <MemoTodoItem data={list} key={index} onUpdateList={onDeleteTodo} />
                 })
               }
             </div>
