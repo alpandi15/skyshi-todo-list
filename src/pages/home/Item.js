@@ -1,13 +1,11 @@
 import {useState} from 'react'
-import moment from 'moment'
-import 'moment/locale/id'
 import {useNavigate} from 'react-router-dom'
-// import ModalComponent from '../../components/Modal'
 import IconDelete from '../../statics/icons/icon-delete.svg'
 import IconAlert from '../../statics/icons/icon-alert.svg'
 import Button from '../../components/Button'
 import { API_HOST } from '../../constant'
 import ModalDialog from '../../components/Dialog'
+import { formatDate } from '../../libs/timeFormat'
 
 const ItemList = ({data, onRefresh, onHandleSuccess}) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,7 +47,7 @@ const ItemList = ({data, onRefresh, onHandleSuccess}) => {
           <h4 data-cy='activity-item-title' className="text-[18px] font-[700]">{data?.title}</h4>
         </div>
         <div className="absolute b-0 w-[calc(100%-54px)] flex items-center justify-between">
-          <span data-cy="activity-item-date" className="text-[#888]">{moment(data?.created_at).format('DD MMMM YYYY')}</span>
+          <span data-cy="activity-item-date" className="text-[#888]">{formatDate(data?.created_at)}</span>
           <img onClick={toggleModal} alt="delete" src={IconDelete} data-cy="activity-item-delete-button" className="cursor-pointer" />
         </div>
       </div>

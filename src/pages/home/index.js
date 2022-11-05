@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from 'react'
-import 'moment/locale/id'
 import Button from '../../components/Button'
 import {API_HOST, EMAIL} from '../../constant'
 import ItemList from './Item'
