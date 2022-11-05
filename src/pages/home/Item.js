@@ -67,7 +67,7 @@ const ItemList = ({data, onRefresh}) => {
           id="ModalDelete"
           dataCy="todo-modal-delete"
         >
-          <div className="w-[490px]">
+          <div>
             <div className="w-full flex items-center justify-center mt-6">
               <img data-cy="modal-delete-icon" alt="icon-alert" src={IconAlert} className="align-middle" />
             </div>
@@ -92,7 +92,7 @@ const ItemList = ({data, onRefresh}) => {
           id="ModalInformation"
           dataCy="todo-modal-information"
         >
-          <div className="w-[490px]">
+          <div>
             <div className="flex items-center">
               <img data-cy="modal-information-icon" alt="icon-alert" src={IconIcon} className="align-middle" />
               <p data-cy="modal-information-title" className="font-[500] text-[14px] text-center ml-[13px]">
