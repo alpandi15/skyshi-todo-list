@@ -150,7 +150,7 @@ const Detail = () => {
         <ModalDialog 
           isOpen={isOpen}
           toggleModal={toggleModal}
-          dataCy="modal-add-item"
+          dataCy="modal-add"
           className="modal-md"
         >
           <ModalForm

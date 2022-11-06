@@ -84,7 +84,7 @@ const TodoItem = ({data, onUpdateList, onRefresh, onHandleSuccess}) => {
           isOpen={isDeleteShow}
           toggleModal={() => setIsDeleteShow(!isDeleteShow)}
           id="ModalDelete"
-          dataCy="todo-modal-delete"
+          dataCy="modal-delete"
         >
           <div>
             <div className="w-full flex items-center justify-center mt-6">
