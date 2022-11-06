@@ -69,7 +69,7 @@ const Home = () => {
       </div>
       <div className="mt-16 mb-8">
         {lists?.length ? (
-          <div className="grid grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-6">
             {lists?.map((data, index) => (
               <ItemList
                 key={index}
