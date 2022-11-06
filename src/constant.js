@@ -10,7 +10,7 @@ export const EMAIL = 'm.alpandi57@gmail.com'
 export const LIST_PRIORITY = [
   {id: 1, priority: 'very-high', title: 'Very High', color: 'bg-[#ED4C5C]'},
   {id: 2, priority: 'high', title: 'High', color: 'bg-[#F8A541]'},
-  {id: 3, priority: 'medium', title: 'Medium', color: 'bg-[#00A790]'},
+  {id: 3, priority: 'normal', title: 'Medium', color: 'bg-[#00A790]'},
   {id: 4, priority: 'low', title: 'Low', color: 'bg-[#428BC1]'},
   {id: 5, priority: 'very-low', title: 'Very Low', color: 'bg-[#8942C1]'},
 ]
