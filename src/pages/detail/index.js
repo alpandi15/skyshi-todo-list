@@ -8,7 +8,7 @@ import Sort from './Sort'
 import InputDropdown from '../../components/form/InputDropdown'
 import ModalDialog from '../../components/Dialog'
 import TodoItem from './TodoItem'
-// import { SORT_LIST } from '../../constant'
+import IconIcon from '../../statics/icons/icon-information.svg'
 
 const MemoFormEdit = memo(FormEdit)
 const MemoTodoItem = memo(TodoItem)
@@ -18,6 +18,7 @@ const Detail = () => {
   const [currentData, setCurrentData] = useState(null)
   const [listTodo, setListTodo] = useState([])
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenSuccess, setIsOpenSuccess] = useState(false);
   const params = useParams()
 
   useEffect(() => {
@@ -99,6 +100,11 @@ const Detail = () => {
     setListTodo(update)
   }
 
+
+  function toggleModalSuccess() {
+    setIsOpenSuccess(!isOpenSuccess);
+  }
+
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -120,6 +126,7 @@ const Detail = () => {
                       key={list?.id}
                       onUpdateList={onDeleteTodo}
                       onRefresh={fetchData}
+                      onHandleSuccess={toggleModalSuccess}
                     />
                   )
                 })
@@ -151,6 +158,25 @@ const Detail = () => {
             toggleModal={toggleModal}
             onRefresh={fetchData}
           />
+        </ModalDialog>
+      )}
+
+      {isOpenSuccess && (
+        <ModalDialog 
+          isOpen={isOpenSuccess}
+          toggleModal={toggleModalSuccess}
+          id="ModalInformation"
+          dataCy="modal-information"
+        >
+          <div className="w-full flex items-center justify-between">
+            <div className="flex items-center">
+              <img data-cy="modal-information-icon" alt="icon-alert" src={IconIcon} className="align-middle" />
+              <p data-cy="modal-information-title" className="font-[500] text-[14px] text-center ml-[13px]">
+                Item berhasil dihapus
+              </p>
+            </div>
+            <i className="material-icons text-[#A4A4A4] cursor-pointer" onClick={toggleModalSuccess}>close</i>
+          </div>
         </ModalDialog>
       )}
     </div>

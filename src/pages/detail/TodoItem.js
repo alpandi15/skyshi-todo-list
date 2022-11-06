@@ -8,11 +8,12 @@ import ModalDialog from '../../components/Dialog'
 import Button from '../../components/Button'
 import InputDropdown from '../../components/form/InputDropdown'
 
-const TodoItem = ({data, onUpdateList, onRefresh}) => {
+const TodoItem = ({data, onUpdateList, onRefresh, onHandleSuccess}) => {
   const [isChecked, setIsChecked] = useState(!!!data?.is_active)
   const [indicator, setIndicator] = useState(null)
   const [isDeleteShow, setIsDeleteShow] = useState(false);
   const [isEditShow, setIsEditShow] = useState(false);
+
 
   useEffect(() => {
     const find = LIST_PRIORITY?.find((x) => x?.priority === data?.priority)
@@ -48,11 +49,11 @@ const TodoItem = ({data, onUpdateList, onRefresh}) => {
     )
     setIsDeleteShow(false)
     if (res?.ok) {
+      onHandleSuccess()
       await onUpdateList(data?.id)
       return
     }
   }
-
 
   return (
     <>
