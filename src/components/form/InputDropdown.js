@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useOutsideAlerter } from '../../libs/useOutsideAlerter'
 import { LIST_PRIORITY } from '../../constant'
 
-const InputDropdown = ({onHandleSelected, defaultValue}) => {
+const InputDropdown = ({onHandleSelected, defaultValue, dataCy}) => {
   const [open, setOpen] = useState(false)
   const [selected, setSelected] = useState(null)
 
@@ -34,10 +34,10 @@ const InputDropdown = ({onHandleSelected, defaultValue}) => {
       <div className="mr-[18px]">
         <button
           onClick={onHandle}
-          data-cy="modal-add-priority-dropdown"
+          data-cy={dataCy}
           className="h-[52px] min-w-[205px] border-[1px] border-[#E5E5E5] flex items-center justify-center rounded"
         >
-          <div data-cy="modal-add-priority-item" className="w-full flex items-center justify-between p-3">
+          <div className="w-full flex items-center justify-between p-3">
             {selected ? (
               <div className="flex items-center">
                 <div className={`${selected?.color} w-[14px] h-[14px] rounded-full mr-4`}></div>
@@ -54,7 +54,7 @@ const InputDropdown = ({onHandleSelected, defaultValue}) => {
         <div className="w-[205px] rounded-[6px] absolute border-[1px] bg-white top-[60px] shadow-lg">
           {LIST_PRIORITY.map((filter, index) => {
             return (
-              <div data-cy={filter?.dataCy} key={index} onClick={() => onSelected(filter?.id)} className="flex items-center px-5 py-4 cursor-pointer relative border-b-[1px]">
+              <div data-cy="modal-add-priority-item" key={index} onClick={() => onSelected(filter?.id)} className="flex items-center px-5 py-4 cursor-pointer relative border-b-[1px]">
                 <div className="flex items-center">
                   <div data-cy="todo-item-priority-indicator" className={`w-[14px] h-[14px] rounded-full mr-4 ${filter?.color}`}></div>
                   <div data-cy="todo-item-title">{filter?.title}</div>

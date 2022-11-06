@@ -72,7 +72,7 @@ const TodoItem = ({data, onUpdateList, onRefresh}) => {
         <img
           alt="delete"
           src={IconDelete}
-          data-cy="todo-item-edit-button"
+          data-cy="todo-item-delete-button"
           className="cursor-pointer"
           onClick={() => setIsDeleteShow(!isDeleteShow)}
         />
@@ -97,7 +97,7 @@ const TodoItem = ({data, onUpdateList, onRefresh}) => {
               </p>
             </div>
             <div className="flex items-center justify-center mt-12">
-              <Button className="mx-2" dataCy="modal-delete-cancle-button" buttonType="secondary" value="Batal" onClick={() => setIsDeleteShow(!isDeleteShow)} />
+              <Button className="mx-2" dataCy="modal-delete-cancel-button" buttonType="secondary" value="Batal" onClick={() => setIsDeleteShow(!isDeleteShow)} />
               <Button className="mx-2" dataCy="modal-delete-confirm-button" disabled={false} buttonType="danger" value="Hapus" onClick={onDelete} />
             </div>
           </div>

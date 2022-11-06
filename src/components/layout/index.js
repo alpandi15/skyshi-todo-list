@@ -7,7 +7,7 @@ const Layout = () => {
         className="h-[105px] bg-[#16ABF8] flex items-center justify-center"
       >
         <div data-cy="header-background" className="max-w-screen-lg w-full">
-          <div data-cy="header-title" className="uppercase text-[24px] font-bold text-white">To do list app</div>
+          <div data-cy="header-title" className="uppercase text-[24px] font-bold text-white">TO DO LIST APP</div>
         </div>
       </header>
       <div className="flex justify-center mt-[43px]">

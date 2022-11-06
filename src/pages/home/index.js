@@ -92,7 +92,7 @@ const Home = () => {
           isOpen={isOpenSuccess}
           toggleModal={toggleModalSuccess}
           id="ModalInformation"
-          dataCy="todo-modal-information"
+          dataCy="modal-information"
         >
           <div className="w-full flex items-center justify-between">
             <div className="flex items-center">

@@ -34,7 +34,7 @@ const Sort = ({onSorted}) => {
         <div className="w-[235px] rounded-[6px] absolute border-[1px] bg-white top-[60px] shadow-lg">
           {FILTERS.map((filter, index) => {
             return (
-              <div key={index} onClick={() => onSelected(filter?.id)} className="flex items-center px-5 py-4 cursor-pointer relative border-b-[1px]">
+              <div data-cy="sort-selection" key={index} onClick={() => onSelected(filter?.id)} className="flex items-center px-5 py-4 cursor-pointer relative border-b-[1px]">
                 <img data-cy="sort-selection-icon" alt={filter?.title} src={filter?.icon} />
                 <div data-cy="sort-selection-title" className="ml-2 text-[#4A4A4A] text-[16px]">{filter?.title}</div>
                 {filter?.id === selected ? (

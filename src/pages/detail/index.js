@@ -105,7 +105,7 @@ const Detail = () => {
         <MemoFormEdit data={currentData} />
         <div className="flex items-center">
           <Sort onSorted={onSorted} />
-          <Button leftIconName="add" dataCy='activity-add-button' value="Tambah" onClick={toggleModal} />
+          <Button leftIconName="add" dataCy='todo-add-button' value="Tambah" onClick={toggleModal} />
         </div>
       </div>
       <div className="mt-16 mb-8">
@@ -126,12 +126,13 @@ const Detail = () => {
               }
             </div>
           ) : (
-            <div className="flex justify-center" data-cy="todo-empty-state">
+            <div className="flex justify-center">
               <img
                 onClick={toggleModal}
                 className="cursor-pointer"
                 alt="empty"
                 src={EmptyState}
+                data-cy="todo-empty-state"
               />
             </div>
           )
@@ -203,6 +204,7 @@ const ModalForm = memo(({toggleModal, activityId, onRefresh}) => {
         <div className="mt-4">
           <div className="uppercase font-[600] text-[12px] mb-2">Nama List Item</div>
           <input
+            data-cy="modal-add-name-input"
             name="title"
             onChange={(e) => onChangeValue(e.target.name, e.target.value)}
             className="px-4 py-2 h-[52px] bg-white appearance-none border-[1px] border-[#E5E5E5] w-full text-strong-gray leading-tight focus:outline-none focus:border-[#555555] rounded"
@@ -210,7 +212,7 @@ const ModalForm = memo(({toggleModal, activityId, onRefresh}) => {
         </div>
         <div className="mt-4">
           <div className="uppercase font-[600] text-[12px] mb-2">Priority</div>
-          <InputDropdown onHandleSelected={onChangeValue} />
+          <InputDropdown onHandleSelected={onChangeValue} dataCy="modal-add-priority-dropdown" />
         </div>
       </div>
       <div className="flex items-center justify-end mt-4 border-t-[1px] pt-4">

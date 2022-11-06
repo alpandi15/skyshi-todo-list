@@ -56,7 +56,7 @@ const FormEdit = ({data}) => {
     <div ref={wrapperRef} className="flex items-center" onClick={() => setIsEdit(true)}>
       <BackButton alt="icon-back-button" dataCy="todo-back-button" />
       <div className="flex items-center">
-        <div data-cy="activity-title" className="font-[700] text-[36px]">{value}</div>
+        <div data-cy="todo-title" className="font-[700] text-[36px]">{value}</div>
         <img className="ml-[27px] cursor-pointer" alt="icon" data-cy="todo-title-edit-button" src={IconPencil} />
       </div>
     </div>

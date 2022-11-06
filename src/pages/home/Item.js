@@ -40,10 +40,9 @@ const ItemList = ({data, onRefresh, onHandleSuccess}) => {
   return (
     <>
       <div
-        data-cy="activity-item"
         className="card-item"
       >
-        <div className="h-[158px] cursor-pointer" onClick={() => navigate(`/detail/${data?.id}`)}>
+        <div data-cy="activity-item" className="h-[158px] cursor-pointer" onClick={() => navigate(`/detail/${data?.id}`)}>
           <h4 data-cy='activity-item-title' className="text-[18px] font-[700]">{data?.title}</h4>
         </div>
         <div className="absolute b-0 w-[calc(100%-54px)] flex items-center justify-between">
@@ -57,7 +56,7 @@ const ItemList = ({data, onRefresh, onHandleSuccess}) => {
           isOpen={isOpen}
           toggleModal={toggleModal}
           id="ModalDelete"
-          dataCy="todo-modal-delete"
+          dataCy="modal-delete"
         >
           <div>
             <div className="w-full flex items-center justify-center mt-6">
@@ -71,7 +70,7 @@ const ItemList = ({data, onRefresh, onHandleSuccess}) => {
               </p>
             </div>
             <div className="flex items-center justify-center mt-12">
-              <Button className="mx-2" dataCy="modal-delete-cancle-button" buttonType="secondary" value="Batal" onClick={toggleModal} />
+              <Button className="mx-2" dataCy="modal-delete-cancel-button" buttonType="secondary" value="Batal" onClick={toggleModal} />
               <Button className="mx-2" dataCy="modal-delete-confirm-button" disabled={isSubmitting} buttonType="danger" value="Hapus" onClick={deleteActivity} />
             </div>
           </div>
