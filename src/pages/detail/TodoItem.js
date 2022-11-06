@@ -161,7 +161,7 @@ const ModalEditForm = memo(({data, toggleModal, onRefresh}) => {
   return (
     <div className="w-full">
       <div className="flex items-center justify-between px-4 pb-3 border-b-[1px]">
-        <div className="text-[18px] font-[600]" data-cy="modal-add-title">Tambah List Item</div>
+        <div className="text-[18px] font-[600]" data-cy="modal-add-title">Edit List Item</div>
         <div>
           <i data-cy="modal-add-close-button" className="material-icons text-[#A4A4A4] cursor-pointer" onClick={toggleModal}>close</i>
         </div>
@@ -182,7 +182,7 @@ const ModalEditForm = memo(({data, toggleModal, onRefresh}) => {
         </div>
       </div>
       <div className="flex items-center justify-end mt-4 border-t-[1px] pt-4">
-        <Button disabled={!!!values?.title || !!!values?.priority} onClick={onSubmit} dataCy="modal-add-save-button" value="Simpan" />
+        <Button disabled={!!!values?.title || !!!values?.priority} onClick={onSubmit} dataCy="modal-edit-save-button" value="Simpan" />
       </div>
     </div>
   )
