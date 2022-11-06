@@ -5,7 +5,7 @@ import { SORT_LIST as FILTERS } from '../../constant'
 
 const Sort = ({onSorted}) => {
   const [open, setOpen] = useState(false)
-  const [selected, setSelected] = useState(null)
+  const [selected, setSelected] = useState(1) //<-- 1: default selected terbaru
 
   const onHandle = () => setOpen(!open)
 

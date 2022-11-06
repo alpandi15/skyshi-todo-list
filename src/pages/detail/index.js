@@ -64,19 +64,32 @@ const Detail = () => {
   }
 
   const onSorted = (id) => {
-    console.log(id)
     // terbaru
     if (id === 1) {
-      const update = listTodo?.sort((a, b) => (a.id < b.id) ? 1 : -1)
+      const update = [...listTodo]?.sort((a, b) => (a.id < b.id) ? 1 : -1)
       setListTodo(update)
-      console.log(update)
       return
     }
     // terlama
     if (id === 2) {
-      const update = listTodo?.sort((a, b) => (a.id > b.id) ? 1 : -1)
+      const update = [...listTodo]?.sort((a, b) => (a.id > b.id) ? 1 : -1)
       setListTodo(update)
-      console.log(update)
+      return
+    }
+    // filter A-Z
+    if (id === 3) {
+      let update = [...listTodo].sort((a,b) => (a.title.toLowerCase() < b.title.toLowerCase()) ? -1 : ((b.title.toLowerCase() > a.title.toLowerCase()) ? 1 : 0));
+      setListTodo(update)
+    }
+    // filter Z-A
+    if (id === 4) {
+      let update = [...listTodo].sort((a,b) => (a.title.toLowerCase() > b.title.toLowerCase()) ? -1 : ((b.title.toLowerCase() < a.title.toLowerCase()) ? 1 : 0));
+      setListTodo(update)
+    }
+    // belum selesai
+    if (id === 5) {
+      const update = [...listTodo]?.sort((a, b) => (a.is_active < b.is_active) ? 1 : -1)
+      setListTodo(update)
       return
     }
   }
@@ -100,11 +113,11 @@ const Detail = () => {
           listTodo?.length ? (
             <div>
               {
-                listTodo?.map((list, index) => {
+                listTodo?.map((list) => {
                   return (
                     <MemoTodoItem
                       data={list}
-                      key={index}
+                      key={list?.id}
                       onUpdateList={onDeleteTodo}
                       onRefresh={fetchData}
                     />
