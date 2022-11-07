@@ -51,31 +51,29 @@ const ItemList = ({data, onRefresh, onHandleSuccess}) => {
         </div>
       </div>
 
-      {isOpen && (
-        <ModalDialog 
-          isOpen={isOpen}
-          toggleModal={toggleModal}
-          id="ModalDelete"
-          dataCy="modal-delete"
-        >
-          <div>
-            <div className="w-full flex items-center justify-center mt-6">
-              <img data-cy="modal-delete-icon" alt="icon-alert" src={IconAlert} className="align-middle" />
-            </div>
-            <div className="flex items-center justify-center mt-8">
-              <p data-cy="modal-delete-title" className="text-[18px] text-center">
-                Apakah anda yakin menghapus activity
-                <strong className="ml-1">{`“${data?.title}”`}</strong>
-                ?
-              </p>
-            </div>
-            <div className="flex items-center justify-center mt-12">
-              <Button className="mx-2" dataCy="modal-delete-cancel-button" buttonType="secondary" value="Batal" onClick={toggleModal} />
-              <Button className="mx-2" dataCy="modal-delete-confirm-button" disabled={isSubmitting} buttonType="danger" value="Hapus" onClick={deleteActivity} />
-            </div>
+      <ModalDialog 
+        isOpen={isOpen}
+        toggleModal={toggleModal}
+        id="ModalDelete"
+        dataCy="modal-delete"
+      >
+        <div>
+          <div className="w-full flex items-center justify-center mt-6">
+            <img data-cy="modal-delete-icon" alt="icon-alert" src={IconAlert} className="align-middle" />
           </div>
-        </ModalDialog>
-      )}
+          <div className="flex items-center justify-center mt-8">
+            <p data-cy="modal-delete-title" className="text-[18px] text-center">
+              Apakah anda yakin menghapus activity
+              <strong className="ml-1">{`“${data?.title}”`}</strong>
+              ?
+            </p>
+          </div>
+          <div className="flex items-center justify-center mt-12">
+            <Button className="mx-2" dataCy="modal-delete-cancel-button" buttonType="secondary" value="Batal" onClick={toggleModal} />
+            <Button className="mx-2" dataCy="modal-delete-confirm-button" disabled={isSubmitting} buttonType="danger" value="Hapus" onClick={deleteActivity} />
+          </div>
+        </div>
+      </ModalDialog>
     </>
   )
 }
